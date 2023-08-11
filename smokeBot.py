@@ -33,3 +33,42 @@ def on_activate_h():
 with keyboard.GlobalHotKeys({
         '<ctrl>+h': on_activate_h}) as h:
     h.join()
+
+
+# Offset 1 : 100
+# Offset 2 : 100
+# Case 1 : 700 1000
+
+activated2 = False
+unavailable = []
+
+def recycle_smoke(unavailable):
+    global activated
+    unavailable = [nb - 1 for nb in unavailable]
+    for nb_case in range(0, 30):
+        if nb_case not in unavailable:
+            if nb_case < 6:
+                pyautogui.rightClick(700 + 100 * (nb_case % 6), 1000)
+                time.sleep(4.5)
+            else:
+                pyautogui.rightClick(700 + 100 * (nb_case % 6), 1000 - 100 * (nb_case // 6))
+                time.sleep(4.5)
+
+
+thread2 = Thread(target=recycle_smoke, args=[unavailable])
+
+
+def on_activate_j():
+    global activated2
+    if not activated2:
+        activated2 = True
+        print('The bot is now activated!')
+        thread2.start()
+    else:
+        activated2 = False
+        print('The bot is now disabled!')
+
+
+with keyboard.GlobalHotKeys({
+    '<ctrl>+j': on_activate_j}) as j:
+    j.join()
