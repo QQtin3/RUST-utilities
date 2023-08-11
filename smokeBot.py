@@ -49,7 +49,10 @@ def recycle_smoke(unavailable):
         if nb_case not in unavailable:
             if nb_case < 6:
                 pyautogui.rightClick(700 + 100 * (nb_case % 6), 1000)
-                time.sleep(4.5)
+                time.sleep(0.01)
+                if nb_case == 6:
+                    # TODO: Coords activation button
+                    pyautogui.click()
             else:
                 pyautogui.rightClick(700 + 100 * (nb_case % 6), 1000 - 100 * (nb_case // 6))
                 time.sleep(4.5)
